@@ -1,0 +1,11 @@
+[Unit]
+Description=Periodic check of /mnt/ftp and auto-trigger chkdsk workflow
+
+[Timer]
+OnBootSec=20min
+OnUnitActiveSec=10min
+Unit=ntfs-watch.service
+Persistent=true
+
+[Install]
+WantedBy=timers.target

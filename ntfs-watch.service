@@ -1,0 +1,11 @@
+[Unit]
+Description=Watch /mnt/ftp and trigger Windows chkdsk if NTFS is broken
+After=local-fs.target network-online.target mnt-ftp.mount
+Wants=network-online.target mnt-ftp.mount
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/ntfs_watch_and_repair.sh
+
+[Install]
+WantedBy=multi-user.target

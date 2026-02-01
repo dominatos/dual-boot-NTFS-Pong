@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+TG_TOKEN="xxxx:xxxx"      # твой токен
+CHAT_ID="xxxxx"    # твой чат/канал
+
+file="${1:-}"
+if [[ -z "$file" || ! -r "$file" ]]; then
+  zenity --error --text="Файл не читается: $file" 2>/dev/null || \
+  echo "Файл не читается: $file" >&2
+  exit 1
+fi
+
+curl -sS --fail-with-body \
+  -F "chat_id=$CHAT_ID" \
+  -F "document=@${file}" \
+  "https://api.telegram.org/bot$TG_TOKEN/sendDocument" \
+  && (zenity --info --text="Отправлено:\n${file}" 2>/dev/null || true)

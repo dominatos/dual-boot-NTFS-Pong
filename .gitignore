@@ -1,0 +1,11 @@
+# Logs
+*.log
+*.tmp
+
+# System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Windows State Files
+reboot.txt
