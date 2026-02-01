@@ -28,7 +28,7 @@ When Linux detects that an NTFS partition is corrupted (read-only or mount failu
 ## 📋 Prerequisites
 
 ### Linux
--   **OS**: Any systemd-based Linux distribution (e.g., Ubuntu, Debian).
+-   **OS**: Any **systemd-based** Linux distribution (e.g., Ubuntu, Debian, Fedora, Arch, CentOS).
 -   **Packages**: `ntfs-3g`, `curl` (for Telegram notifications).
 -   **Sudo/Root**: Scripts run as root via systemd.
 
