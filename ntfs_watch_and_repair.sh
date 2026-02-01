@@ -96,13 +96,19 @@ fi
 
 # 1) Check if /mnt/ftp is mounted
 if mountpoint -q "$FTP_MOUNT_POINT"; then
-    log "OK: ${FTP_MOUNT_POINT} is mounted. Resetting attempt counter."
-    rm -f "$STATE_FILE" || true
-
-    exit 0
+    # 1.1) Check if it is writable (not Read-Only)
+    if timeout 5 touch "$FTP_MOUNT_POINT/.ntfs_write_test" 2>/dev/null; then
+        rm -f "$FTP_MOUNT_POINT/.ntfs_write_test"
+        log "OK: ${FTP_MOUNT_POINT} is mounted and writable. Resetting attempt counter."
+        rm -f "$STATE_FILE" || true
+        exit 0
+    else
+        log "WARN: ${FTP_MOUNT_POINT} is mounted but READ-ONLY or NOT WRITABLE."
+    fi
+else
+    log "WARN: ${FTP_MOUNT_POINT} is NOT mounted."
 fi
 
-log "WARN: ${FTP_MOUNT_POINT} is NOT mounted."
 log "Trying ntfsfix first..."
 
 ntfsfix  "$FTP_DISC" || log "ntfsfix failed (continuing)"
