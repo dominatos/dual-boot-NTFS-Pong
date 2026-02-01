@@ -1,6 +1,13 @@
 # Dual-boot NTFS Pong (NTFS Watch & Repair)
 
 This project provides an automated "Ping-Pong" repair workflow for NTFS partitions shared between Linux and Windows in a dual-boot environment **based on Grub2Win**.
+# NTFS Auto-Repair 
+
+[![Ubuntu](https://img.shields.io/badge/Ubuntu-24.04-orange)](https://ubuntu.com)
+[![License](https://img.shields.io/github/license/dominatos/dual-boot-NTFS-Pong)](LICENSE)
+
+**Automatic NTFS repair on power loss without manual intervention**
+
 
 When Linux detects that an NTFS partition is corrupted (read-only or mount failure), it automatically reboots the system into Windows to run `chkdsk`, and then Windows automatically reboots back into Linux after the repair.
 
