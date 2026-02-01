@@ -1,6 +1,6 @@
 # Dual-boot NTFS Pong (NTFS Watch & Repair)
 
-This project provides an automated "Ping-Pong" repair workflow for NTFS partitions shared between Linux and Windows in a dual-boot environment.
+This project provides an automated "Ping-Pong" repair workflow for NTFS partitions shared between Linux and Windows in a dual-boot environment **based on Grub2Win**.
 
 When Linux detects that an NTFS partition is corrupted (read-only or mount failure), it automatically reboots the system into Windows to run `chkdsk`, and then Windows automatically reboots back into Linux after the repair.
 
