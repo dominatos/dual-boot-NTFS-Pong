@@ -1,10 +1,9 @@
 # Dual-boot NTFS Pong (NTFS Watch & Repair)
+[![License](https://img.shields.io/github/license/dominatos/dual-boot-NTFS-Pong)](LICENSE)
 
 This project provides an automated "Ping-Pong" repair workflow for NTFS partitions shared between Linux and Windows in a dual-boot environment **based on Grub2Win**.
-# NTFS Auto-Repair 
 
-[![Ubuntu](https://img.shields.io/badge/Ubuntu-24.04-orange)](https://ubuntu.com)
-[![License](https://img.shields.io/github/license/dominatos/dual-boot-NTFS-Pong)](LICENSE)
+
 
 **Automatic NTFS repair on power loss without manual intervention**
 
