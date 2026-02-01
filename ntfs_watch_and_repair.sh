@@ -6,23 +6,35 @@ set -Eeuo pipefail
 
 ### ============ SETTINGS ============
 
-FTP_MOUNT_POINT="/mnt/ftp"
-FTP_DISC="/dev/sda1"
-WIN_DEV="/dev/sdc3"
-WIN_MOUNT_POINT="/mnt/win"
-GRUB_CFG="${WIN_MOUNT_POINT}/grub2/grub.cfg"
-CHK_BAT_ON="${WIN_MOUNT_POINT}/chkdisk.bat"
+# Default Configuration
+CONFIG_FILE="/etc/ntfs-watch.conf"
 
-STATE_FILE="/var/lib/ntfs_repair_attempts"
-MAX_ATTEMPTS=3
+# Load external config if available
+if [[ -f "$CONFIG_FILE" ]]; then
+    # shellcheck source=/dev/null
+    source "$CONFIG_FILE"
+fi
 
-LOG_FILE="/var/log/ntfs_repair.log"
+# Fallback / Defaults (can be overridden by config)
+: "${FTP_MOUNT_POINT:="/mnt/ftp"}"
+: "${FTP_DISC:="/dev/sda1"}"
+: "${WIN_DEV:="/dev/sdc3"}"
+: "${WIN_MOUNT_POINT:="/mnt/win"}"
+: "${GRUB_CFG:="${WIN_MOUNT_POINT}/grub2/grub.cfg"}"
+: "${CHK_BAT_ON:="${WIN_MOUNT_POINT}/chkdisk.bat"}"
+
+: "${STATE_FILE:="/var/lib/ntfs_repair_attempts"}"
+: "${MAX_ATTEMPTS:=3}"
+
+: "${LOG_FILE:="/var/log/ntfs_repair.log"}"
 
 # Lock file to prevent parallel execution
-LOCK_FILE="/run/ntfs_repair.lock"
-REBOOT_FLAG="/mnt/win/reboot.txt"
+: "${LOCK_FILE:="/run/ntfs_repair.lock"}"
+: "${REBOOT_FLAG:="/mnt/win/reboot.txt"}"
 # Number of log lines to send to Telegram (0 = send entire file)
-TG_TAIL_LINES=200
+: "${TG_TAIL_LINES:=200}"
+
+### ===================================
 
 ### ===================================
 

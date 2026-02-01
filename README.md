@@ -43,9 +43,12 @@ When Linux detects that an NTFS partition is corrupted (read-only or mount failu
 
 ### ✅ Quick Start Checklist (MUST EDIT)
 
-Before running anything, you **MUST** modify the following scripts to match your system's UUIDs and paths.
+**Note:** If you run `sudo ./install.sh`, step 1 and 3 are handled for you automatically!
+
+Before running anything *manually*, you **MUST** modify the following scripts to match your system's UUIDs and paths.
 
 1.  **`ntfs_watch_and_repair.sh`** (Linux):
+    -   *Managed by `/etc/ntfs-watch.conf` if installed via `install.sh`.*
     -   `FTP_MOUNT_POINT`: Your NTFS mount path (e.g., `/mnt/ftp`).
     -   `FTP_DISC`: The NTFS partition device (e.g., `/dev/sda1`).
     -   `WIN_DEV`: The Windows system partition (e.g., `/dev/sdc3`).
@@ -100,7 +103,19 @@ Both Linux and Windows scripts support sending logs to Telegram.
 
 ## 🚀 Installation
 
-### Linux
+### Linux (Automated via Installer)
+
+The easiest way to install is using the interactive installer:
+
+```bash
+chmod +x install.sh
+sudo ./install.sh
+```
+Follow the on-screen prompts to select your partitions and set up Telegram notifications.
+
+### Linux (Manual)
+
+If you prefer to install manually:
 
 1.  **Install Scripts**:
     ```bash
@@ -111,13 +126,24 @@ Both Linux and Windows scripts support sending logs to Telegram.
     sudo chmod +x /usr/local/bin/tg_send
     ```
 
-2.  **Install Service & Timer**:
+2.  **Configuration**:
+    Create `/etc/ntfs-watch.conf` manually:
+    ```bash
+    FTP_DISC="/dev/sda1"
+    FTP_MOUNT_POINT="/mnt/ftp"
+    WIN_DEV="/dev/sdc3"
+    # Optional
+    TG_TOKEN="your_token"
+    CHAT_ID="your_chat_id"
+    ```
+
+3.  **Install Service & Timer**:
     ```bash
     sudo cp ntfs-watch.service /etc/systemd/system/
     sudo cp ntfs-watch.timer /etc/systemd/system/
     ```
 
-3.  **Enable Automation**:
+4.  **Enable Automation**:
     ```bash
     sudo systemctl daemon-reload
     sudo systemctl enable --now ntfs-watch.timer
@@ -195,6 +221,7 @@ To prevent the system from getting stuck in an infinite reboot loop between Wind
 
 | File | OS | Description |
 | :--- | :--- | :--- |
+| `install.sh` | 🐧 Linux | Interactive installer to generate config and setup systemd. |
 | `ntfs_watch_and_repair.sh` | 🐧 Linux | Main logic. Checks mound, modifies Grub, reboots. |
 | `ntfs-watch.service` | 🐧 Linux | Systemd service definition. |
 | `ntfs-watch.timer` | 🐧 Linux | Systemd timer (default: runs every 20 mins). |
